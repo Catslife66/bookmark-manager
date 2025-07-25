@@ -3,21 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
     "build": "next build",
+    "dev": "next dev --turbopack",
+    "lint": "next lint",
     "start": "next start",
-    "lint": "next lint"
+    "sstDev": "npx sst dev",
+    "deploy": "npx sst deploy --stage production",
+    "remove": "npx sst remove --stage production"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.25.4",
+    "@prisma/client": "^6.12.0",
+    "@prisma/extension-accelerate": "^2.0.2",
+    "axios": "^1.10.0",
+    "next": "15.4.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.4.1"
+    "sst": "3.17.10",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.4.1",
-    "@eslint/eslintrc": "^3"
+    "prisma": "^6.12.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.20.3"
   }
 }
