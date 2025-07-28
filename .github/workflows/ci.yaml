@@ -1,10 +1,12 @@
-name: Deploy to AWS via SST
+name: CI Checks
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
-  deploy:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,3 +15,9 @@ jobs:
           node-version: "22.x"
       - name: Install dependencies
         run: npm install
+
+      - name: Validate Prisma schema
+        run: npx prisma validate
+
+      - name: Build Next.js project
+        run: npm run build
