@@ -18,6 +18,9 @@ jobs:
 
       - name: Validate Prisma schema
         run: npx prisma validate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
 
       - name: Build Next.js project
         run: npm run build
