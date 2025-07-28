@@ -22,5 +22,5 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
 
-      - name: Build Next.js project
-        run: npm run build
+      - name: Build project
+        run: npx sst dev -- npm run build
