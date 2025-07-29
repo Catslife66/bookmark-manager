@@ -1,4 +1,30 @@
-Steps for creating prisma
+# Bookmark Manager
+
+A full-stack application for managing bookmarks.  
+This project demonstrates CRUD, authentication via Clerk, and deployment with SST to AWS.
+
+## Features
+
+- Add, edit, and delete bookmarks
+- User authentication with Clerk (social logins supported)
+- PostgreSQL database hosted on Neon
+- Prisma ORM for schema and migrations
+- CI/CD with GitHub Actions
+- Deployed serverlessly with SST + AWS Lambda
+
+## Tech Stack
+
+- Frontend: Next.js (App Router)
+- Backend: SST (Serverless Stack)
+- Database: Neon (PostgreSQL)
+- ORM: Prisma
+- Auth: Clerk
+- Deployment: AWS Lambda via SST
+- CI/CD: GitHub Actions
+
+---
+
+## Setup prisma
 
 1. Define your database schema
    Open the schema.prisma file and define your first models. Check the docs if you need inspiration: https://pris.ly/ppg-init.
@@ -17,12 +43,17 @@ Steps for creating prisma
 
 5. To access your database from a JavaScript/TypeScript app, you need to use Prisma ORM. Go here for step-by-step instructions: https://pris.ly/ppg-init
 
-Set up SST
+---
+
+## Setup SST
 
 1. install sst
    npx sst@latest init
 
 2. setup IAM credentials and IAM policy to grant SST access
-   - Create an IAM user for SST deployment
-     By default, AWS credentials are in a file:
-     ~/.aws/credentials on Linux, Unix, macOS
+   Create an IAM user for SST deployment
+   By default, AWS credentials are in a file: ~/.aws/credentials on Linux, Unix, macOS
+
+3. set SST secrets
+   - npx sst secret set SECRET_NAME SECRET_VALUE
+   - run 'npx sst dev' or 'npx sst deploy' to update the secret

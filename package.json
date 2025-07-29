@@ -7,7 +7,6 @@
     "dev": "next dev --turbopack",
     "lint": "next lint",
     "start": "next start",
-    "sstDev": "npx sst dev",
     "deploy": "npx sst deploy --stage production",
     "remove": "npx sst remove --stage production"
   },

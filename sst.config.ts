@@ -9,11 +9,10 @@ export default $config({
     };
   },
   async run() {
-    const secret = new sst.Secret("MySecret");
     const dbUrl = new sst.Secret("DATABASE_URL");
     const prismaUrl = new sst.Secret("PRISMA_CONNECT_URL");
     new sst.aws.Nextjs("MyWeb", {
-      link: [secret, dbUrl, prismaUrl],
+      link: [dbUrl, prismaUrl],
     });
   },
 });

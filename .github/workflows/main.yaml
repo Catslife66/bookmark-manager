@@ -1,0 +1,51 @@
+name: CI Checks
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+      - name: Cache build
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next
+            .open-next
+          key: cache-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx',) }}
+          retore-keys: cache-${{ hashFiles('package-lock.json') }}-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install AWS credentials
+        run: |
+          mkdir -p ~/.aws
+          echo "[default]" > ~/.aws/credentials
+          echo "aws_access_key_id=${{secrets.AWS_ACCESS_KEY_ID}}" > ~/.aws/credentials
+          echo "aws_secret_access_key=${{secrets.AWS_SECRET_ACCESS_KEY}}" > ~/.aws/credentials
+
+      - name: Set SST secrets
+        run: |
+          npx sst secrets set PRISMA_CONNECT_URL ${{secrets.DATABASE_URL}}
+          npx sst secrets set DATABASE_URL ${{secrets.DIRECT_DATABASE_URL}}
+
+      - name: Migrate Prisma database
+        run: npx prisma migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
+
+      - name: Deploy to AWS
+        run: npx sst deploy
+
+      - name: Clean Up AWS Profile
+        run: |
+          rm -rf ~/.aws

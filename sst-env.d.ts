@@ -9,10 +9,6 @@ declare module "sst" {
       "type": "sst.sst.Secret"
       "value": string
     }
-    "MySecret": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
     "MyWeb": {
       "type": "sst.aws.Nextjs"
       "url": string
