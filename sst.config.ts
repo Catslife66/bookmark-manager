@@ -6,6 +6,11 @@ export default $config({
       name: "bookmark-manager",
       removal: input?.stage === "production" ? "retain" : "remove",
       home: "aws",
+      providers: {
+        aws: {
+          region: "eu-west-1",
+        },
+      },
     };
   },
   async run() {
