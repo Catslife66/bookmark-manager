@@ -1,4 +1,4 @@
-name: CI Checks
+name: Deploy to AWS via SST
 
 on:
   workflow_dispatch:
@@ -36,8 +36,8 @@ jobs:
 
       - name: Set SST secrets
         run: |
-          npx sst secrets set PRISMA_CONNECT_URL ${{secrets.DATABASE_URL}}
-          npx sst secrets set DATABASE_URL ${{secrets.DIRECT_DATABASE_URL}}
+          npx sst secret set PRISMA_CONNECT_URL ${{secrets.DATABASE_URL}}
+          npx sst secret set DATABASE_URL ${{secrets.DIRECT_DATABASE_URL}}
 
       - name: Migrate Prisma database
         run: npx prisma migrate
