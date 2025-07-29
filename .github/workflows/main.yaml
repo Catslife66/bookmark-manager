@@ -19,8 +19,10 @@ jobs:
           path: |
             .next
             .open-next
-          key: cache-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx',) }}
-          retore-keys: cache-${{ hashFiles('package-lock.json') }}-
+          key: |
+            cache-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            cache-${{ hashFiles('package-lock.json') }}-
 
       - name: Install dependencies
         run: npm install
