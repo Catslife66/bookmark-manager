@@ -55,5 +55,10 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
    By default, AWS credentials are in a file: ~/.aws/credentials on Linux, Unix, macOS
 
 3. set SST secrets
+
    - npx sst secret set SECRET_NAME SECRET_VALUE
+   - link the secrets in sst.config.ts
    - run 'npx sst dev' or 'npx sst deploy' to update the secret
+
+4. run deploy to aws cloudfront
+   npx sst deploy --stage production
