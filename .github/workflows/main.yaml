@@ -36,8 +36,8 @@ jobs:
 
       - name: Set SST secrets
         run: |
-          npx sst secret set PRISMA_CONNECT_URL ${{secrets.DATABASE_URL}} --stage production
-          npx sst secret set DATABASE_URL ${{secrets.DIRECT_DATABASE_URL}} --stage production
+          npx sst secret set PRISMA_CONNECT_URL "${{secrets.DATABASE_URL}}" --stage production
+          npx sst secret set DATABASE_URL "${{secrets.DIRECT_DATABASE_URL}}" --stage production
 
       - name: Migrate Prisma database
         run: npx prisma migrate
