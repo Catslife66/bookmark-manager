@@ -15,8 +15,11 @@ export default $config({
   },
   async run() {
     const dbUrl = new sst.Secret("DATABASE_URL");
+    const authSecret = new sst.Secret("AUTH_SECRET");
+    const githubId = new sst.Secret("AUTH_GITHUB_ID");
+    const githubSecret = new sst.Secret("AUTH_GITHUB_SECRET");
     new sst.aws.Nextjs("MyWeb", {
-      link: [dbUrl],
+      link: [dbUrl, authSecret, githubId, githubSecret],
     });
   },
 });
