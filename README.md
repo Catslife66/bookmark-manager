@@ -6,7 +6,7 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
 ## Features
 
 - Add, edit, and delete bookmarks
-- User authentication with Clerk (social logins supported)
+- User authentication with NextAuth
 - PostgreSQL database hosted on Neon
 - Prisma ORM for schema and migrations
 - CI/CD with GitHub Actions
@@ -18,7 +18,7 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
 - Backend: SST (Serverless Stack)
 - Database: Neon (PostgreSQL)
 - ORM: Prisma
-- Auth: Clerk
+- Auth: NextAuth
 - Deployment: AWS Lambda via SST
 - CI/CD: GitHub Actions
 
@@ -30,9 +30,8 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
    Open the schema.prisma file and define your first models. Check the docs if you need inspiration: https://pris.ly/ppg-init.
 
 2. To connect to serverless database
-
-   - Define 'directUrl' variables in schema.prisma
-   - new PrismaClient with datasourceUrl object
+   Add "previewFeatures" flag to use Neon serverless driver.
+   https://www.prisma.io/docs/orm/overview/databases/neon#how-to-use-neons-serverless-driver-with-prisma-orm-preview
 
 3. Apply migrations
    Run the following command to create and apply a migration:
@@ -41,7 +40,7 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
 4. Populate some data with seed.ts file
    npx prisma db seed
 
-5. To access your database from a JavaScript/TypeScript app, you need to use Prisma ORM. Go here for step-by-step instructions: https://pris.ly/ppg-init
+5. To access database from a JavaScript/TypeScript app, you need to use Prisma ORM. Go here for step-by-step instructions: https://pris.ly/ppg-init
 
 ---
 
@@ -53,6 +52,7 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
 2. setup IAM credentials and IAM policy to grant SST access
    Create an IAM user for SST deployment
    By default, AWS credentials are in a file: ~/.aws/credentials on Linux, Unix, macOS
+   Specify aws region in sst.config.ts
 
 3. set SST secrets
 

@@ -15,9 +15,8 @@ export default $config({
   },
   async run() {
     const dbUrl = new sst.Secret("DATABASE_URL");
-    const prismaUrl = new sst.Secret("PRISMA_CONNECT_URL");
     new sst.aws.Nextjs("MyWeb", {
-      link: [dbUrl, prismaUrl],
+      link: [dbUrl],
     });
   },
 });

@@ -1,14 +1,20 @@
+// import { PrismaClient } from "@prisma/client";
+// import { withAccelerate } from "@prisma/extension-accelerate";
+
+// const prismaClientSingleton = () => {
+//   return new PrismaClient().$extends(withAccelerate());
+// };
+
+// const prisma = prismaClientSingleton();
+
+// export default prisma;
+
 import { PrismaClient } from "@prisma/client";
-import { withAccelerate } from "@prisma/extension-accelerate";
-import { Resource } from "sst";
+import { PrismaNeon } from "@prisma/adapter-neon";
 
-const prismaClientSingleton = () => {
-  return new PrismaClient({
-    datasourceUrl:
-      process.env.DIRECT_DATABASE_URL || Resource.DATABASE_URL.value,
-  }).$extends(withAccelerate());
-};
+const connectionString = process.env.DIRECT_DATABASE_URL;
 
-const prisma = prismaClientSingleton();
+const adapter = new PrismaNeon({ connectionString });
+const prisma = new PrismaClient({ adapter });
 
 export default prisma;

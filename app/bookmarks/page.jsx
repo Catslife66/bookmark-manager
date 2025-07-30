@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/auth";
 import { findUserBookmarks } from "@/app/lib/actions";
 import AddBookmarkForm from "@/app/components/AddBookmarkForm";
 
 export default async function page() {
-  const { userId } = await auth();
-  const bookmarks = await findUserBookmarks(userId);
+  const session = await auth();
+  const bookmarks = await findUserBookmarks(session.user.userId);
 
   return (
     <div className="max-w-screen-lg mx-auto pt-32">

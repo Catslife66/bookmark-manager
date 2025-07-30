@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/auth";
 import { createBookmark } from "@/app/lib/actions";
 import { bookmarkSchema } from "@/schemas/bookmarkSchema";
 
 export async function POST(request) {
   const requestData = await request.json();
-  const result = bookmarkSchema.safeParse(requestData);
+  const session = await auth();
+  const formData = {
+    ...requestData,
+    userId: session.user.id,
+  };
+
+  const result = bookmarkSchema.safeParse(formData);
 
   if (!result.success) {
     return NextResponse.json(

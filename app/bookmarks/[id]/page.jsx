@@ -2,12 +2,10 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth } from "@clerk/clerk-react";
 import Link from "next/link";
 import DeleteBookmarkModal from "@/app/components/DeleteBookmarkModal";
 
 export default function page({ params }) {
-  const { userId } = useAuth();
   const [bookmark, setBookmark] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingModal, setIsLoadingModal] = useState(false);
@@ -43,7 +41,6 @@ export default function page({ params }) {
       title: bookmark.title,
       url,
       notes,
-      clerkId: userId,
     };
 
     try {

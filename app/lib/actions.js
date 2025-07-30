@@ -16,7 +16,7 @@ export async function findBookmark(bookmarkId) {
 
 export async function findUserBookmarks(userId) {
   return await prisma.bookmark.findMany({
-    where: { clerkId: userId },
+    where: { userId: userId },
     orderBy: { updatedAt: "desc" },
   });
 }

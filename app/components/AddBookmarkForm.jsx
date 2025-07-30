@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 
 export default function AddBookmarkForm() {
   const router = useRouter();
-  const { userId } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -17,12 +15,13 @@ export default function AddBookmarkForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = {
       title,
       url,
       notes,
-      clerkId: userId,
     };
+
     try {
       await axios.post("/api", formData);
       setSuccessMsg("Bookmark is added.");
@@ -102,15 +101,15 @@ export default function AddBookmarkForm() {
               </button>
             </div>
 
-            <form action="#" onSubmit={handleSubmit}>
+            <form>
               {errorMsg.title && (
                 <div className="py-4 text-red-400">{errorMsg.title}</div>
               )}
               {errorMsg.url && (
                 <div className="py-4 text-red-400">{errorMsg.url}</div>
               )}
-              {errorMsg.clerkId && (
-                <div className="py-4 text-red-400">{errorMsg.clerkId}</div>
+              {errorMsg.userId && (
+                <div className="py-4 text-red-400">{errorMsg.userId}</div>
               )}
               {successMsg && (
                 <div
@@ -195,6 +194,7 @@ export default function AddBookmarkForm() {
               </div>
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 <svg
