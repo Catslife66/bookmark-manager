@@ -32,6 +32,7 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
 2. To connect to serverless database
    Add "previewFeatures" flag to use Neon serverless driver.
    https://www.prisma.io/docs/orm/overview/databases/neon#how-to-use-neons-serverless-driver-with-prisma-orm-preview
+   npx prisma generate
 
 3. Apply migrations
    Run the following command to create and apply a migration:
