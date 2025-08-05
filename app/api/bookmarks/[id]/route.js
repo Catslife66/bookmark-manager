@@ -3,20 +3,20 @@ import {
   deleteBookmark,
   updateBookmark,
 } from "@/app/lib/actions";
-import { auth } from "@/auth";
+import { auth } from "@/app/actions";
 import { bookmarkSchema } from "@/schemas/bookmarkSchema";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   const { id } = await params;
-  const session = await auth();
+  const subject = await auth();
 
   try {
     const bookmark = await findBookmark(id);
     if (!bookmark) {
       return NextResponse.json({ bookmark: "Not found" }, { status: 404 });
     }
-    if (bookmark.userId !== session.user.id) {
+    if (bookmark.userId !== subject.properties.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
     return NextResponse.json({ bookmark: bookmark }, { status: 200 });
@@ -35,7 +35,7 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   const { id } = await params;
-  const session = await auth();
+  const subject = await auth();
   const requestData = await request.json();
   const bookmark = await findBookmark(id);
 
@@ -43,13 +43,13 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ error: "Bookmark not found" }, { status: 404 });
   }
 
-  if (bookmark.userId !== session.user.id) {
+  if (bookmark.userId !== subject.properties.id) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const formData = {
     ...requestData,
-    userId: session.user.id,
+    userId: subject.properties.id,
   };
 
   const result = bookmarkSchema.safeParse(formData);
@@ -78,7 +78,7 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   const { id } = await params;
-  const session = await auth();
+  const subject = await auth();
 
   try {
     const bookmark = await findBookmark(id);
@@ -88,7 +88,7 @@ export async function DELETE(request, { params }) {
         { status: 404 }
       );
     }
-    if (bookmark.userId !== session.user.id) {
+    if (bookmark.userId !== subject.properties.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
     await deleteBookmark(id);

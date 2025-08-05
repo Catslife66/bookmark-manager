@@ -6,7 +6,7 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
 ## Features
 
 - Add, edit, and delete bookmarks
-- User authentication with NextAuth
+- User authentication with OpenAuth
 - PostgreSQL database hosted on Neon
 - Prisma ORM for schema and migrations
 - CI/CD with GitHub Actions
@@ -18,7 +18,7 @@ This project demonstrates CRUD, authentication via Clerk, and deployment with SS
 - Backend: SST (Serverless Stack)
 - Database: Neon (PostgreSQL)
 - ORM: Prisma
-- Auth: NextAuth
+- Auth: OpenAuth
 - Deployment: AWS Lambda via SST
 - CI/CD: GitHub Actions
 

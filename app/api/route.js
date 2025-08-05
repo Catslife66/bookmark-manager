@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { auth } from "@/app/actions";
 import { createBookmark } from "@/app/lib/actions";
 import { bookmarkSchema } from "@/schemas/bookmarkSchema";
 
 export async function POST(request) {
   const requestData = await request.json();
-  const session = await auth();
+  const subject = await auth();
   const formData = {
     ...requestData,
-    userId: session.user.id,
+    userId: subject.properties.id,
   };
 
   const result = bookmarkSchema.safeParse(formData);

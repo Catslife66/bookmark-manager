@@ -1,16 +1,25 @@
 import Link from "next/link";
-import { auth } from "@/auth";
+import { auth } from "@/app/actions";
 import { findUserBookmarks } from "@/app/lib/actions";
 import AddBookmarkForm from "@/app/components/AddBookmarkForm";
 
 export default async function page() {
-  const session = await auth();
-  const bookmarks = await findUserBookmarks(session.user.userId);
+  const subject = await auth();
+  if (!subject) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <h1 className="text-xl font-bold">
+          Please log in to view your bookmarks.
+        </h1>
+      </div>
+    );
+  }
+  const bookmarks = await findUserBookmarks(subject.properties.id);
 
   return (
-    <div className="max-w-screen-lg mx-auto pt-32">
+    <div className="max-w-screen-lg mx-auto pt-32 px-4 md:px-8">
       <h1 className="font-bold text-4xl text-center py-8">My bookmarks</h1>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid gap-8 md:grid-cols-3">
         <AddBookmarkForm />
         {bookmarks.map((bookmark, idx) => (
           <Link

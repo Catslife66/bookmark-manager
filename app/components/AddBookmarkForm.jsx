@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-export default function AddBookmarkForm() {
+export default function AddBookmarkForm({ isForm = true }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
@@ -42,31 +42,40 @@ export default function AddBookmarkForm() {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center border border-gray-200 bg-gray-100 rounded-lg p-8">
-        <div
-          className="bg-red-300 p-4 rounded-full cursor-pointer mb-4"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <svg
-            className="w-6 h-6 text-gray-800 dark:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
+      {isForm ? (
+        <div className="flex flex-col justify-center items-center border border-gray-200 bg-gray-100 rounded-lg p-8">
+          <div
+            className="bg-red-300 p-4 rounded-full cursor-pointer mb-4"
+            onClick={() => setIsOpen(!isOpen)}
           >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 12h14m-7 7V5"
-            />
-          </svg>
+            <svg
+              className="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 12h14m-7 7V5"
+              />
+            </svg>
+          </div>
+          <h3 className="font-bold">Add a new bookmark</h3>
         </div>
-        <h3 className="font-bold">Add a new bookmark</h3>
-      </div>
+      ) : (
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className="cursor-pointer flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100"
+        >
+          Add a new bookmark
+        </div>
+      )}
 
       <div
         className={`${
@@ -74,7 +83,7 @@ export default function AddBookmarkForm() {
         } overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 w-full h-screen`}
       >
         <div className="relative p-4 w-full h-full mx-auto flex justify-center items-center">
-          <div className="relative w-1/2 p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+          <div className="relative w-full md:w-1/2 p-4 bg-white rounded-lg shadow dark:bg-gray-800">
             <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Add Bookmark

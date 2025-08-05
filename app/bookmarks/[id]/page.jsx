@@ -6,6 +6,7 @@ import Link from "next/link";
 import DeleteBookmarkModal from "@/app/components/DeleteBookmarkModal";
 
 export default function page({ params }) {
+  const [isUser, setIsUser] = useState(false);
   const [bookmark, setBookmark] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingModal, setIsLoadingModal] = useState(false);
@@ -15,6 +16,14 @@ export default function page({ params }) {
   const [errorMsg, setErrorMsg] = useState({});
 
   useEffect(() => {
+    async function getUser() {
+      try {
+        await axios.get("api/auth");
+        setIsUser(true);
+      } catch (e) {
+        console.log(e);
+      }
+    }
     async function getBookmark() {
       const { id } = await params;
       try {
@@ -32,6 +41,7 @@ export default function page({ params }) {
         setIsLoading(false);
       }
     }
+    getUser();
     getBookmark();
   }, []);
 
@@ -58,7 +68,15 @@ export default function page({ params }) {
     }
   };
 
-  if (isLoading)
+  if (!isUser) {
+    return (
+      <div className="pt-56 w-full text-center">
+        Please login to view your bookmarks
+      </div>
+    );
+  }
+
+  if (isUser && isLoading)
     return <div className="pt-56 w-full text-center">Loading...</div>;
 
   return bookmark ? (
@@ -80,10 +98,10 @@ export default function page({ params }) {
           <h2 className="text-2xl py-4 font-bold">{bookmark.title}</h2>
 
           {errorMsg.url && (
-            <div className="py-4 text-red-400">{errorMsg.url}</div>
+            <div className="py-4 text-sm text-red-4800">{errorMsg.url}</div>
           )}
-          {errorMsg.clerkId && (
-            <div className="py-4 text-red-400">{errorMsg.clerkId}</div>
+          {errorMsg.userId && (
+            <div className="py-4 text-sm text-red-4800">{errorMsg.userId}</div>
           )}
           {successMsg && (
             <div

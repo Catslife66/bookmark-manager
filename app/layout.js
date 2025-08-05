@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
 import Navbar from "./components/navbar";
 import "./globals.css";
 
@@ -24,9 +23,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <SessionProvider>
-          <Navbar />
-        </SessionProvider> */}
+        <Navbar />
         <main className="">{children}</main>
       </body>
     </html>

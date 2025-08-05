@@ -38,7 +38,6 @@ jobs:
       - name: Set SST secrets
         run: |
           npx sst secret set DATABASE_URL "${{secrets.DATABASE_URL}}" --stage production
-          npx sst secret set AUTH_SECRET "${{secrets.AUTH_SECRET}}" --stage production
           npx sst secret set AUTH_GITHUB_ID "${{secrets.AUTH_GITHUB_ID}}" --stage production
           npx sst secret set AUTH_GITHUB_SECRET "${{secrets.AUTH_GITHUB_SECRET}}" --stage production
 
@@ -52,7 +51,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
           AUTH_GITHUB_ID: ${{ secrets.AUTH_GITHUB_ID }}
           AUTH_GITHUB_SECRET: ${{ secrets.AUTH_GITHUB_SECRET }}
 
